@@ -17,9 +17,33 @@
     <dagger.version>1.0.0</dagger.version>
 	<fb-android-dagger.version>1.0.0-SNAPSHOT</fb-android-dagger.version>
     <slf4j-android.version>1.6.1-RC1</slf4j-android.version>
-
   </properties>
 
+  <scm>
+    <url>http://github.com/fizz-buzz/fb-android-bluetooth/</url>
+    <connection>scm:git:git://github.com/fizz-buzz/fb-android-bluetooth.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/fizz-buzz/fb-android-bluetooth.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>http://github.com/fizz-buzz/fb-android-bluetooth/issues</url>
+  </issueManagement>
+
+  <licenses>
+    <license>
+      <name>Apache 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>Fizz Buzz LLC</name>
+    <url>http://fizz-buzz.com</url>
+  </organization>
+  
+  
   <dependencies>
 
     <!-- test scoped dependencies -->

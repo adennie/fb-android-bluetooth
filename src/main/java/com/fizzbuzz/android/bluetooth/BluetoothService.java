@@ -22,10 +22,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * A base helper class for implementing bluetooth support on Android.  Supports making outbound connections and
+ * listening for inbound connections.  Subclasses should provide an overriding implementation of
+ * {@link #runWhileConnected(android.bluetooth.BluetoothSocket)}
+ */
 public class BluetoothService extends InjectingService {
-    public static final String INTENT_ACTION_LISTEN_FOR_BLUETOOTH_CONNECTIONS = "com.fizzbuzz.bluetooth.LISTEN_FOR_BLUETOOTH_CONNECTIONS";
-    public static final String INTENT_ACTION_CONNECT_TO_BLUETOOTH_DEVICE = "com.fizzbuzz.bluetooth.CONNECT_TO_BLUETOOTH_DEVICE";
-
     private enum State {
         STATE_NONE,
         STATE_LISTENING,
@@ -33,6 +35,10 @@ public class BluetoothService extends InjectingService {
         STATE_CONNECTED
     }
 
+    public static final String INTENT_ACTION_LISTEN_FOR_BLUETOOTH_CONNECTIONS = "com.fizzbuzz.android.bluetooth" +
+            ".LISTEN_FOR_BLUETOOTH_CONNECTIONS";
+    public static final String INTENT_ACTION_CONNECT_TO_BLUETOOTH_DEVICE = "com.fizzbuzz.android.bluetooth" +
+            ".CONNECT_TO_BLUETOOTH_DEVICE";
     // https://www.bluetooth.org/en-us/specification/assigned-numbers-overview/service-discovery
     private static UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private final Logger mLogger = LoggerFactory.getLogger(LoggingManager.TAG);
@@ -61,10 +67,10 @@ public class BluetoothService extends InjectingService {
         super.onStartCommand(intent, flags, startId);
 
         // if the intent is null, it means the service was restarted after being killed by the system
-        if (intent.getAction().equals(INTENT_ACTION_LISTEN_FOR_BLUETOOTH_CONNECTIONS)){
+        if (intent.getAction().equals(INTENT_ACTION_LISTEN_FOR_BLUETOOTH_CONNECTIONS)) {
             reset();
             listen();
-        }else if (intent.getAction().equals(INTENT_ACTION_CONNECT_TO_BLUETOOTH_DEVICE)) {
+        } else if (intent.getAction().equals(INTENT_ACTION_CONNECT_TO_BLUETOOTH_DEVICE)) {
             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             reset();
             connect(device);
@@ -87,6 +93,12 @@ public class BluetoothService extends InjectingService {
         return null; // binding support not implemented
     }
 
+    /**
+     * Spawns a thread to connect to a bluetooth device.  If there is another thread in the process of making a
+     * connection, or a thread already connected to a device, those threads are cancelled first.
+     *
+     * @param device the target device
+     */
     public synchronized void connect(BluetoothDevice device) {
         // if a thread is already in the process of connecting to another device, cancel that other one
         if (getServiceState() == State.STATE_CONNECTING) {
@@ -112,7 +124,7 @@ public class BluetoothService extends InjectingService {
     }
 
     protected synchronized void onConnectionFailed(final BluetoothDevice device) {
-        reset(); // reset over
+        reset();
     }
 
     protected void onInboundConnectionRequestReceived(final BluetoothDevice device) {
@@ -130,6 +142,12 @@ public class BluetoothService extends InjectingService {
         mConnectedThread.start();
     }
 
+    /**
+     * Invoked once a connection has been established with a device.  Subclasses should override to implement
+     * the logic they want to execute while connected.
+     *
+     * @param socket the connected bluetooth socket
+     */
     protected void runWhileConnected(final BluetoothSocket socket) {
         // invoked by ConnectedThread.run().  To be implemented by subclass.
     }
@@ -360,7 +378,5 @@ public class BluetoothService extends InjectingService {
             runWhileConnected(mSocket); // implementation supplied by BluetoothService subclass
             cancel();
         }
-
-
     }
 }

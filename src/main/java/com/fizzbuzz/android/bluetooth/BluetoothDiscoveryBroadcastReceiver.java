@@ -10,6 +10,9 @@ import com.fizzbuzz.android.dagger.InjectingBroadcastReceiver;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * A BroadcastReceiver which can be used to listen for and process bluetooth discovery intents
+ */
 public class BluetoothDiscoveryBroadcastReceiver extends InjectingBroadcastReceiver {
 
 

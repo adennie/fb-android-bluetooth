@@ -10,7 +10,7 @@
 
   <groupId>com.fizz-buzz</groupId>
   <artifactId>fb-android-bluetooth</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>fb-android-bluetooth</name>
   <description>A helper library for using bluetooth on Android</description>

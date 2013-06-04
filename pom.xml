@@ -5,9 +5,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.fizzbuzz</groupId>
+  <groupId>com.fizz-buzz</groupId>
   <artifactId>fb-android-bluetooth</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>fb-android-bluetooth</name>
+  <description>A helper library for using bluetooth on Android</description>
+  <url>https://github.com/fizz-buzz/fb-android-bluetooth</url>
 
   <properties>
     <android-target-sdk>17</android-target-sdk>
@@ -15,7 +19,7 @@
     <!-- dependency versions -->
     <android.version>4.2.2</android.version>
     <dagger.version>1.0.0</dagger.version>
-	<fb-android-dagger.version>1.0.0-SNAPSHOT</fb-android-dagger.version>
+	  <fb-android-dagger.version>1.0.0-SNAPSHOT</fb-android-dagger.version>
     <slf4j-android.version>1.6.1-RC1</slf4j-android.version>
   </properties>
 
@@ -42,16 +46,21 @@
     <name>Fizz Buzz LLC</name>
     <url>http://fizz-buzz.com</url>
   </organization>
-  
-  
-  <dependencies>
 
-    <!-- test scoped dependencies -->
+  <developers>
+    <developer>
+      <name>Andy Dennie</name>
+      <email>andy@fizz-buzz.com</email>
+      <url>www.andydennie.com</url>
+    </developer>
+  </developers>
+
+  <dependencies>
 
     <!-- 3rd party _packaged_ dependencies, alpha by groupId/artifactId -->
 
     <dependency>
-      <groupId>com.fizzbuzz</groupId>
+      <groupId>com.fizz-buzz</groupId>
       <artifactId>fb-android-dagger</artifactId>
       <version>${fb-android-dagger.version}</version>
     </dependency>

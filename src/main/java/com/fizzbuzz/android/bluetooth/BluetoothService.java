@@ -315,7 +315,6 @@ public class BluetoothService extends InjectingService {
         @Override
         public void run() {
 
-            mLogger.debug("BluetoothService$ConnectingThread.run: posting ObdConnectingEvent");
             onBeforeConnect(mDevice);
             try {
                 mLogger.debug("BluetoothService$ConnectingThread.run: opening socket");
@@ -330,7 +329,6 @@ public class BluetoothService extends InjectingService {
                 mLogger.debug("BluetoothService$ConnectingThread.run: connecting to device");
                 mSocket.connect();
                 mLogger.debug("BluetoothService$ConnectingThread.run: connected successfully");
-                mLogger.debug("BluetoothService$ConnectingThread.run: posting ObdConnectedEvent");
                 onConnected(mSocket);
             } catch (IOException e) {
                 mLogger.error("BluetoothService$ConnectingThread.run: caught IOException when connecting to " +

@@ -1,4 +1,4 @@
-fb-android-dagger
+fb-android-bluetooth
 =================
 
 A set of helper classes for working with Bluetooth devices on Android
